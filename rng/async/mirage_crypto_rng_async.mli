@@ -1,5 +1,5 @@
 open! Core
-open! Async
+open! Async_kernel
 
 (** {b RNG} seeding on {b Async}.
 

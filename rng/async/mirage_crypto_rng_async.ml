@@ -1,5 +1,5 @@
 open Core
-open Async
+open Async_kernel
 
 open Mirage_crypto_rng
 
@@ -39,7 +39,7 @@ let periodically_collect_getrandom_entropy time_source span =
       Entropy.feed_pools None source f)
 
 let read_cpu_counter_at_the_start_of_every_cycle () =
-  Scheduler.Expert.run_every_cycle_start
+  Async_kernel_scheduler.Expert.run_every_cycle_start
     (Entropy.timer_accumulator None)
 
 let getrandom_init i =
