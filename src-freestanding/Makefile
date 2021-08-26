@@ -2,7 +2,7 @@ ifneq (, $(shell command -v opam))
 PKG_CONFIG_PATH ?= $(shell opam var prefix)/lib/pkgconfig
 endif
 
-EXISTS := $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --exists ocaml-freestanding; echo $$?)
+EXISTS := $(shell PKG_CONFIG_PATH="$(PKG_CONFIG_PATH)" pkg-config --exists ocaml-freestanding; echo $$?)
 
 .PHONY: all clean
 all: libmirage_crypto_freestanding_stubs.a
@@ -12,7 +12,7 @@ libmirage_crypto_freestanding_stubs.a:
 	touch $@
 else
 CC ?= cc
-FREESTANDING_CFLAGS := $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --cflags ocaml-freestanding)
+FREESTANDING_CFLAGS := $(shell PKG_CONFIG_PATH="$(PKG_CONFIG_PATH)" pkg-config --cflags ocaml-freestanding)
 MIRAGE_CRYPTO_OPT_CFLAGS := $(shell sed 's/^(\(.*\))$$/\1/' ../src/cflags_optimized.sexp | tr -d '"')
 CFLAGS := -I../src/native $(MIRAGE_CRYPTO_OPT_CFLAGS) $(FREESTANDING_CFLAGS)
 
