@@ -39,6 +39,9 @@
 #include "mirage_crypto.h"
 #include <string.h>
 
+/* Microsoft compiler does not support 128-bit integers. Drop down to
+ * 32-bit for MSVC.
+ */
 #if defined (__i386__) || defined (__arm__) || defined(_MSC_VER)
 
 /*
